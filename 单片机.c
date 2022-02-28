@@ -21,12 +21,12 @@ unsigned char recv[MAX];
 unsigned char cnt;
 unsigned char t;
 unsigned char flag;
-unsigned char code welcome[] = "»¶Ó­Ê¹ÓÃÇóÖú»ú";
-unsigned char code ill[] = "ÎÒÉú²¡ÁË";
-unsigned char code fire[] = "Ê§»ğÁË";
-unsigned char code error[] = "µçÂ·¹ÊÕÏ";
-unsigned char code other[] = "ÆäËûÇóÖú";
-unsigned char code wifi[] = "WiFiÁ¬½Ó³É¹¦";
+unsigned char code welcome[] = "æ¬¢è¿ä½¿ç”¨æ±‚åŠ©æœº";
+unsigned char code ill[] = "æˆ‘ç”Ÿç—…äº†";
+unsigned char code fire[] = "å¤±ç«äº†";
+unsigned char code error[] = "ç”µè·¯æ•…éšœ";
+unsigned char code other[] = "å…¶ä»–æ±‚åŠ©";
+unsigned char code wifi[] = "WiFiè¿æ¥æˆåŠŸ";
 
 void uart_ISR() interrupt 4
 {
@@ -45,16 +45,16 @@ void uart_ISR() interrupt 4
 	}
 }
 
-void Timer0Init(void)		//1ºÁÃë@11.0592MHz
+void Timer0Init(void)		//1æ¯«ç§’@11.0592MHz
 {
-	//AUXR &= 0x7F;		//¶¨Ê±Æ÷Ê±ÖÓ12TÄ£Ê½
-	TMOD &= 0xF0;		//ÉèÖÃ¶¨Ê±Æ÷Ä£Ê½
-	TMOD |= 0x01;		//ÉèÖÃ¶¨Ê±Æ÷Ä£Ê½
-	TL0 = 0x66;		//ÉèÖÃ¶¨Ê±³õÖµ
-	TH0 = 0xFC;		//ÉèÖÃ¶¨Ê±³õÖµ
-	TF0 = 0;		//Çå³ıTF0±êÖ¾
+	//AUXR &= 0x7F;		//å®šæ—¶å™¨æ—¶é’Ÿ12Tæ¨¡å¼
+	TMOD &= 0xF0;		//è®¾ç½®å®šæ—¶å™¨æ¨¡å¼
+	TMOD |= 0x01;		//è®¾ç½®å®šæ—¶å™¨æ¨¡å¼
+	TL0 = 0x66;		//è®¾ç½®å®šæ—¶åˆå€¼
+	TH0 = 0xFC;		//è®¾ç½®å®šæ—¶åˆå€¼
+	TF0 = 0;		//æ¸…é™¤TF0æ ‡å¿—
 	ET0 = 1;
-	TR0 = 1;		//¶¨Ê±Æ÷0¿ªÊ¼¼ÆÊ±
+	TR0 = 1;		//å®šæ—¶å™¨0å¼€å§‹è®¡æ—¶
 }
 
 void timer0_ISR() interrupt 1
@@ -77,13 +77,13 @@ void timer0_ISR() interrupt 1
 
 void UartInit(void)		//9600bps@11.0592MHz
 {
-TMOD|=0X20;   //ÉèÖÃ¼ÆÊıÆ÷¹¤×÷·½Ê½2:´®¿Ú
-SCON=0X50;   //ÉèÖÃÎª¹¤×÷·½Ê½1
-PCON=0X80;   //²¨ÌØÂÊ¼Ó±¶
-TH1=0xfa;   //¼ÆÊıÆ÷³õÊ¼ÖµÉèÖÃ 9600bps
+TMOD|=0X20;   //è®¾ç½®è®¡æ•°å™¨å·¥ä½œæ–¹å¼2:ä¸²å£
+SCON=0X50;   //è®¾ç½®ä¸ºå·¥ä½œæ–¹å¼1
+PCON=0X80;   //æ³¢ç‰¹ç‡åŠ å€
+TH1=0xfa;   //è®¡æ•°å™¨åˆå§‹å€¼è®¾ç½® 9600bps
 TL1=0xfa;
-ES=1;   //´ò¿ª½ÓÊÕÖĞ¶Ï
-TR1=1;   //´ò¿ª¼ÆÊıÆ÷
+ES=1;   //æ‰“å¼€æ¥æ”¶ä¸­æ–­
+TR1=1;   //æ‰“å¼€è®¡æ•°å™¨
 }
 
 void recv_cls(unsigned char *o)
@@ -186,7 +186,7 @@ void is_busy(void)
 	E = 0;
 }
 
-void send_sth(unsigned char type,unsigned char sth) //0´ú±íÖ¸Áî£¬1´ú±íÊı¾İ
+void send_sth(unsigned char type,unsigned char sth) //0ä»£è¡¨æŒ‡ä»¤ï¼Œ1ä»£è¡¨æ•°æ®
 {
 	is_busy();
 	RS = type;
@@ -220,12 +220,12 @@ void print_text(unsigned char cha[])
 	unsigned char a,i;
 	i = 0;
 	send_sth(0,0x01);
-	set(1,1);  // ÉèÖÃºº×Ö´Ó£¨1£¬1£©¿ªÊ¼ÏÔÊ¾
-	while(cha[i]!='\0')  // ÅĞ¶Ï×Ö·û´®ÊÇ·ñ½áÊø
+	set(1,1);  // è®¾ç½®æ±‰å­—ä»ï¼ˆ1ï¼Œ1ï¼‰å¼€å§‹æ˜¾ç¤º
+	while(cha[i]!='\0')  // åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦ç»“æŸ
 	{
-		send_sth(1,cha[i]);  // ·¢ËÍºº×Ö£¬Ò»¸öºº×ÖÁ½¸ö×Ö½Ú£¬Ò»´Î·¢ËÍÒ»×Ö½Ú
+		send_sth(1,cha[i]);  // å‘é€æ±‰å­—ï¼Œä¸€ä¸ªæ±‰å­—ä¸¤ä¸ªå­—èŠ‚ï¼Œä¸€æ¬¡å‘é€ä¸€å­—èŠ‚
 		i++;
-		if(i % 16 == 0) // Ã¿°Ë¸ö×Ö£¨16¸ö×Ö½Ú£©»»Ò»´ÎĞĞ
+		if(i % 16 == 0) // æ¯å…«ä¸ªå­—ï¼ˆ16ä¸ªå­—èŠ‚ï¼‰æ¢ä¸€æ¬¡è¡Œ
 			{a = i / 16 + 1;
 			set(1,a);}
 	}
@@ -291,18 +291,18 @@ void send_get(unsigned int a)
 	}
 }
 
-void keyscan()//°´¼üÉ¨Ãè
+void keyscan()//æŒ‰é”®æ‰«æ
 {
  if(!key1)
  {
-  delay(8);//Ïû¶¶
+  delay(8);//æ¶ˆæŠ–
    if(!key1)
    {
 		beep=0;
 		print_text(ill);
 		send_get(1);
 	 }
-    while(!key1);//Ì§ÊÖÎªÖ¹
+    while(!key1);//æŠ¬æ‰‹ä¸ºæ­¢
 	 beep=1;
  }
    if(!key2)
@@ -390,7 +390,7 @@ void main()
 			Delay1200ms();
 			if(strstr(recv,"OK"))
 			{
-			print_text("²âÊÔ³É¹¦");
+			print_text("æµ‹è¯•æˆåŠŸ");
 			recv_cls(recv);
 			b = 1;
 			}
